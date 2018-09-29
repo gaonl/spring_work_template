@@ -25,7 +25,7 @@ public class TestUserDao {
     @Test
     public void testSave(){
         User user = new User();
-        user.setName("user2");
+        user.setName("user3");
         User userSaved =userDao.save(user);
 
         User userFindById = userDao.getById(user.getId());
