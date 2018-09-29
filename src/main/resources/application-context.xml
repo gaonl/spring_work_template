@@ -45,6 +45,8 @@
         <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
     </bean>
 
+    <bean id="liveCycleBean" class="com.magicli.beans.LiveCycleBean" init-method="myInit" destroy-method="myDestroy"></bean>
+
     <bean id="daoInvokerCounter" class="com.magicli.aop.DaoInvokeCounter"></bean>
     <aop:config>
         <aop:aspect ref="daoInvokerCounter">
@@ -52,5 +54,7 @@
             <aop:before method="countBeforeInvokeDaoMethod" pointcut-ref="daoInvokerPointcut"></aop:before>
         </aop:aspect>
     </aop:config>
+
+
 
 </beans>
