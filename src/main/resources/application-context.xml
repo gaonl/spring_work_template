@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd">
+                           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 开启组件自动扫描 -->
     <context:component-scan base-package="com.magicli"></context:component-scan>
@@ -44,5 +44,13 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
     </bean>
+
+    <bean id="daoInvokerCounter" class="com.magicli.aop.DaoInvokeCounter"></bean>
+    <aop:config>
+        <aop:aspect ref="daoInvokerCounter">
+            <aop:pointcut id="daoInvokerPointcut" expression="execution(* com.magicli..*Dao.*(..)))"></aop:pointcut>
+            <aop:before method="countBeforeInvokeDaoMethod" pointcut-ref="daoInvokerPointcut"></aop:before>
+        </aop:aspect>
+    </aop:config>
 
 </beans>

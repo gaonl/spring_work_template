@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
 * Created by gaonl on 2018/9/28.
@@ -25,7 +26,7 @@ public class TestUserDao {
     @Test
     public void testSave(){
         User user = new User();
-        user.setName("user3");
+        user.setName("user_" + UUID.randomUUID().toString());
         User userSaved =userDao.save(user);
 
         User userFindById = userDao.getById(user.getId());

@@ -30,6 +30,20 @@
             <version>4.3.2.RELEASE</version>
         </dependency>
 
+        <!-- aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+
+
+
         <!-- JDBC -->
         <dependency>
             <groupId>mysql</groupId>
