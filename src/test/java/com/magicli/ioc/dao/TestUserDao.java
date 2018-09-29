@@ -1,5 +1,6 @@
 package com.magicli.ioc.dao;
 
+import com.magicli.ApplicationContext;
 import com.magicli.ioc.domain.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,10 +14,11 @@ import java.util.List;
 import java.util.UUID;
 
 /**
-* Created by gaonl on 2018/9/28.
-*/
+ * Created by gaonl on 2018/9/28.
+ */
 @RunWith(SpringJUnit4ClassRunner.class) //使用junit4进行测试
-@ContextConfiguration(locations={"classpath:application-context.xml"}) //加载配置文件
+//@ContextConfiguration(locations = {"classpath:application-context.xml"}) //加载配置文件
+@ContextConfiguration(classes = ApplicationContext.class) //加载配置java类
 public class TestUserDao {
 
     @Autowired
@@ -24,15 +26,15 @@ public class TestUserDao {
     private UserDao userDao;
 
     @Test
-    public void testSave(){
+    public void testSave() {
         User user = new User();
         user.setName("user_" + UUID.randomUUID().toString());
-        User userSaved =userDao.save(user);
+        User userSaved = userDao.save(user);
 
         User userFindById = userDao.getById(user.getId());
         List<User> userFindByName = userDao.getByName(user.getName());
 
-        Assert.assertEquals(userFindById,userSaved);
-        Assert.assertEquals(userFindByName.get(0),userSaved);
+        Assert.assertEquals(userFindById, userSaved);
+        Assert.assertEquals(userFindByName.get(0), userSaved);
     }
 }
