@@ -45,8 +45,6 @@ public class ApplicationContext {
     public DataSource dataSource() throws Exception {
         DruidDataSource dataSource = new DruidDataSource();
 
-        System.out.println("--------->" + driverClassName);
-
         dataSource.setName(name);
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);

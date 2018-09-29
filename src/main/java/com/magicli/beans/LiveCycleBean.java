@@ -2,6 +2,7 @@ package com.magicli.beans;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -34,6 +35,10 @@ import org.springframework.context.ApplicationContextAware;
  * myDestroy
  */
 public class LiveCycleBean implements BeanNameAware, BeanFactoryAware, ApplicationContextAware, BeanPostProcessor, InitializingBean, DisposableBean {
+
+    @Value("${datasource.name}")
+    private String dataSourceName;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         System.out.println("setApplicationContext");
@@ -76,6 +81,6 @@ public class LiveCycleBean implements BeanNameAware, BeanFactoryAware, Applicati
     }
 
     public void myDestroy() {
-        System.out.println("myDestroy");
+        System.out.println("myDestroy LiveCycleBean with datasource: " + dataSourceName);
     }
 }

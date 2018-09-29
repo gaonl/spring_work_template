@@ -17,8 +17,8 @@ import java.util.UUID;
  * Created by gaonl on 2018/9/28.
  */
 @RunWith(SpringJUnit4ClassRunner.class) //使用junit4进行测试
-//@ContextConfiguration(locations = {"classpath:application-context.xml"}) //加载配置文件
-@ContextConfiguration(classes = ApplicationContext.class) //加载配置java类
+@ContextConfiguration(locations = {"classpath:application-context.xml"}) //加载配置文件
+//@ContextConfiguration(classes = ApplicationContext.class) //加载配置java类
 public class TestUserDao {
 
     @Autowired

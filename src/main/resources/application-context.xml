@@ -10,7 +10,8 @@
     <!-- 开启组件自动扫描 -->
     <context:component-scan base-package="com.magicli"></context:component-scan>
 
-    <!-- 导入属性文件   -->
+    <!-- 导入属性文件，并且在bean中可以使用${properties}来获取参数   -->
+    <!-- (默认有生成PropertySourcesPlaceholderConfigurer这个Bean了吧)   -->
     <context:property-placeholder location="classpath:application.properties"/>
     <import resource="application-datasource.xml"></import>
 
