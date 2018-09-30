@@ -3,6 +3,8 @@ package com.magicli;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.magicli.aop.DaoInvokeCounter;
 import com.magicli.beans.LiveCycleBean;
+import com.magicli.ioc.dao.UserDao;
+import com.magicli.ioc.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,10 +18,13 @@ import javax.sql.DataSource;
 /**
  * Created by gaonl on 2018/9/29.
  */
-@Configuration
-@ComponentScan(basePackages = "com.magicli")
+@Configuration //说明此类是java配置类
+@ComponentScan(basePackages = "com.magicli")//设置扫描的基础包
+//@ComponentScan("com.magicli") //设置扫描的基础包
+//@ComponentScan(basePackages = {"com.magicli.aop","com.magicli.ioc"})//设置多个扫描的基础包
+//@ComponentScan(basePackageClasses = {UserDao.class,User.class})//设置类所在的包及其子包的扫描路径，可以用标记接口来代替
 @PropertySource("classpath:application.properties")
-public class ApplicationContext {
+public class ApplicationContextConfig {
     @Value("${datasource.name}")
     private String name;
     @Value("${datasource.driverClassName}")
@@ -34,6 +39,7 @@ public class ApplicationContext {
 
     /**
      * 要配置这本bean,才能使用上述的占位符
+     *
      * @return
      */
     @Bean
