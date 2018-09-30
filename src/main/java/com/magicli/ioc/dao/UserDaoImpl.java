@@ -19,7 +19,8 @@ import java.util.Map;
 /**
  * Created by gaonl on 2018/9/28.
  */
-@Repository("userDao")
+@Repository("userDao") //bean ID=userDao
+@Qualifier("userDao") //Qualifier=userDao
 public class UserDaoImpl implements UserDao {
 
     @Autowired(required = true)

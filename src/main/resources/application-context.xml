@@ -8,14 +8,14 @@
                            http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 开启组件自动扫描 -->
-    <context:component-scan base-package="com.magicli"></context:component-scan>
+    <context:component-scan base-package="com.magicli"/>
 
     <!-- 导入属性文件，并且在bean中可以使用${properties}来获取参数   -->
     <!-- (默认有生成PropertySourcesPlaceholderConfigurer这个Bean了吧)   -->
     <context:property-placeholder location="classpath:application.properties"/>
 
     <!-- 引入xml类型的配置文件   -->
-    <import resource="application-datasource.xml"></import>
+    <import resource="application-datasource.xml"/>
 
     <!-- 引入java类型的配置文件   -->
     <!--<bean class="com.magicli.ApplicationContextConfig"></bean>-->
@@ -25,16 +25,32 @@
         <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
     </bean>
 
-    <bean id="liveCycleBean" class="com.magicli.beans.LiveCycleBean" init-method="myInit"
-          destroy-method="myDestroy"></bean>
+    <bean id="liveCycleBean" class="com.magicli.beans.LiveCycleBean" init-method="myInit" destroy-method="myDestroy"/>
 
+    <!-- xml方式配置aop   -->
     <bean id="daoInvokerCounter" class="com.magicli.aop.DaoInvokeCounter"></bean>
     <aop:config>
+        <aop:pointcut id="savePointCut" expression="execution(* com.magicli..UserDao.save(..)))"></aop:pointcut>
         <aop:aspect ref="daoInvokerCounter">
-            <aop:pointcut id="daoInvokerPointcut" expression="execution(* com.magicli..*Dao.*(..)))"></aop:pointcut>
-            <aop:before method="countBeforeInvokeDaoMethod" pointcut-ref="daoInvokerPointcut"></aop:before>
+            <aop:before method="before" pointcut-ref="savePointCut"/>
+        </aop:aspect>
+        <aop:aspect ref="daoInvokerCounter">
+            <aop:after method="after" pointcut-ref="savePointCut"/>
+        </aop:aspect>
+        <aop:aspect ref="daoInvokerCounter">
+            <aop:after-returning method="afterReturn" pointcut-ref="savePointCut" returning="result"/>
+        </aop:aspect>
+        <aop:aspect ref="daoInvokerCounter">
+            <aop:after-throwing method="afterThrowing" pointcut-ref="savePointCut" throwing="e"/>
+        </aop:aspect>
+        <aop:aspect ref="daoInvokerCounter">
+            <aop:around method="around" pointcut-ref="savePointCut"/>
         </aop:aspect>
     </aop:config>
+    <!-- 配置使@AspectJ自动成为切面代理。注解形式配置切面，启用aop自动生成代理（好像配不配都可以啊）   -->
+    <!-- proxy-target-class="false" : jdk动态代理  -->
+    <!-- proxy-target-class="true" : cglib代理  -->
+    <aop:aspectj-autoproxy proxy-target-class="false"/>
 
 
 </beans>

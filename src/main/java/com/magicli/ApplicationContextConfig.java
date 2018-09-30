@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 //@PropertySource("classpath:application.properties")
 //@ImportResource({"path-to-application-context.xml"})//导入其他给予xml的配置文件
 @Import({ApplicationDataSourceConfig.class})//导入其他基于java配置的class文件
+@EnableAspectJAutoProxy//配置切面注解  @AspectJ自动解析，注解形式配置切面，与 xml配置中 <aop:aspectj-autoproxy/>标签是一样的
 public class ApplicationContextConfig {
 
     @Bean(name = "jdbcTemplate")

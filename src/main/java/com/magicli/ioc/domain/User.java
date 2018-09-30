@@ -42,4 +42,11 @@ public class User {
         result = 31 * result + name.hashCode();
         return result;
     }
+
+    private static final String toStringJsonFmt = "{\"id\":%s,\"name\":\"%s\"}";
+
+    @Override
+    public String toString() {
+        return String.format(toStringJsonFmt, String.valueOf(id), String.valueOf(name));
+    }
 }

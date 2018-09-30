@@ -56,13 +56,13 @@ public class LiveCycleBean implements BeanNameAware, BeanFactoryAware, Applicati
 
     @Override
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
-        System.out.println("bean name[" + s + "] postProcessBeforeInitialization");
+//        System.out.println("bean name[" + s + "] postProcessBeforeInitialization");
         return o;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
-        System.out.println("bean name[" + s + "] postProcessAfterInitialization");
+//        System.out.println("bean name[" + s + "] postProcessAfterInitialization");
         return o;
     }
 

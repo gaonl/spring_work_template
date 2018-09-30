@@ -22,7 +22,7 @@ import java.util.UUID;
 public class TestUserDao {
 
     @Autowired
-    @Qualifier("userDao")
+    @Qualifier("userDao") //首先匹配有指定Qualifier 的bean,如果没有匹配到，在匹配bean id 为userDao的bean
     private UserDao userDao;
 
     @Test
