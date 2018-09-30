@@ -1,5 +1,6 @@
 package com.magicli.aop;
 
+import com.magicli.ioc.domain.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
@@ -14,6 +15,7 @@ public class DaoInvokeCounter {
     }
 
     public void after(JoinPoint joinPoint) {
+        //不管方法执行成功还是失败，都会执行的
         Object param = joinPoint.getArgs()[0];
         String methodName = joinPoint.getSignature().getName();
         System.out.println("The method [" + methodName + "] after with user: " + param);
@@ -40,6 +42,10 @@ public class DaoInvokeCounter {
             System.out.println("The method [" + methodName + "] around(start) with param " + param);
             //执行目标方法
             result = proceedingJoinPoint.proceed();
+            //执行目标方法(调用带参数的proceed方法可以更改参数，也可以对result进行返回值处理)
+            //User user = (User) param;
+            //user.setName("change___" + user.getName());
+            //result = proceedingJoinPoint.proceed(new Object[]{user});
             //返回通知
             System.out.println("The method [" + methodName + "] around(end) with result " + result);
         } catch (Throwable e) {

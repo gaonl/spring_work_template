@@ -8,7 +8,7 @@
                            http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 开启组件自动扫描 -->
-    <context:component-scan base-package="com.magicli"/>
+    <context:component-scan base-package="com.magicli.aop,com.magicli.ioc,com.magicli.beans,"/>
 
     <!-- 导入属性文件，并且在bean中可以使用${properties}来获取参数   -->
     <!-- (默认有生成PropertySourcesPlaceholderConfigurer这个Bean了吧)   -->
@@ -47,10 +47,10 @@
             <aop:around method="around" pointcut-ref="savePointCut"/>
         </aop:aspect>
     </aop:config>
-    <!-- 配置使@AspectJ自动成为切面代理。注解形式配置切面，启用aop自动生成代理（好像配不配都可以啊）   -->
+    <!-- 配置使@AspectJ自动成为切面代理。注解形式配置切面，启用aop自动生成代理   -->
     <!-- proxy-target-class="false" : jdk动态代理  -->
     <!-- proxy-target-class="true" : cglib代理  -->
-    <aop:aspectj-autoproxy proxy-target-class="false"/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="false"/>-->
 
 
 </beans>
