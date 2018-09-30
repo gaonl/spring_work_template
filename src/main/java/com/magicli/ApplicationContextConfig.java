@@ -21,7 +21,8 @@ import javax.sql.DataSource;
 //@ComponentScan(basePackages = {"com.magicli.aop","com.magicli.ioc"})//设置多个扫描的基础包
 //@ComponentScan(basePackageClasses = {UserDao.class,User.class})//设置类所在的包及其子包的扫描路径，可以用标记接口来代替
 //@PropertySource("classpath:application.properties")
-@Import({ApplicationDataSourceConfig.class})//导入其他配置
+//@ImportResource({"path-to-application-context.xml"})//导入其他给予xml的配置文件
+@Import({ApplicationDataSourceConfig.class})//导入其他基于java配置的class文件
 public class ApplicationContextConfig {
 
     @Bean(name = "jdbcTemplate")

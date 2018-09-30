@@ -13,7 +13,12 @@
     <!-- 导入属性文件，并且在bean中可以使用${properties}来获取参数   -->
     <!-- (默认有生成PropertySourcesPlaceholderConfigurer这个Bean了吧)   -->
     <context:property-placeholder location="classpath:application.properties"/>
+
+    <!-- 引入xml类型的配置文件   -->
     <import resource="application-datasource.xml"></import>
+
+    <!-- 引入java类型的配置文件   -->
+    <!--<bean class="com.magicli.ApplicationContextConfig"></bean>-->
 
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
