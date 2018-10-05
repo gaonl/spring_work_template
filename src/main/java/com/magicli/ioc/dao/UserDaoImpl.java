@@ -33,15 +33,17 @@ public class UserDaoImpl implements UserDao {
             User user = new User();
             user.setId(rs.getInt("id"));
             user.setName(rs.getString("name"));
+            user.setPassword(rs.getString("password"));
             return user;
         }
     };
 
     @Override
     public User save(User user) {
-        String sql = "insert into t_user(name) values(:name);";
+        String sql = "insert into t_user(name,password) values(:name,:password);";
         Map<String, Object> param = new HashMap<>();
         param.put("name", user.getName());
+        param.put("password", user.getPassword());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(sql, new MapSqlParameterSource(param), keyHolder);
         user.setId(keyHolder.getKey().intValue());
@@ -50,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(Integer id) {
-        String sql = "select id,name from t_user where id=:id;";
+        String sql = "select id,name,password from t_user where id=:id;";
         Map<String, Object> param = new HashMap<>();
         param.put("id", id);
 

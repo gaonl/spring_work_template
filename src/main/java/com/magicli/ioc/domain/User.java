@@ -6,6 +6,8 @@ package com.magicli.ioc.domain;
 public class User {
     private Integer id;
     private String name;
+    private String password;
+    private Long registerDateTime;
 
     public Integer getId() {
         return id;
@@ -21,6 +23,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getRegisterDateTime() {
+        return registerDateTime;
+    }
+
+    public void setRegisterDateTime(Long registerDateTime) {
+        this.registerDateTime = registerDateTime;
     }
 
     @Override

@@ -2,4 +2,50 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <!-- 配置加载父容器 -->
+    <!-- 指定ApplicationContext，默认貌似是 XmlWebApplicationContext -->
+    <!--<context-param>-->
+        <!--<param-name>contextClass</param-name>-->
+        <!--<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>com.magicli.ApplicationContextConfig</param-value>-->
+    <!--</context-param>-->
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application-context.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 配置DispatcherServlet(默认会根据applicationMvc这个名称去/WEB-INF/查找applicationMvc-context.xml配置文件) -->
+    <servlet>
+        <servlet-name>applicationMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 明确指定要加载的文件，不用默认的 -->
+        <!-- 指定ApplicationContext，默认貌似是 XmlWebApplicationContext -->
+        <!--<init-param>-->
+            <!--<param-name>contextClass</param-name>-->
+            <!--<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>contextConfigLocation</param-name>-->
+            <!--<param-value>com.magicli.web.WebApplicationContextConfig</param-value>-->
+        <!--</init-param>-->
+
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:application-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>applicationMVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
