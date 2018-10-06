@@ -3,6 +3,9 @@ package com.magicli.web;
 import com.magicli.ApplicationContextConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 /**
  * Created by gaonl on 2018/10/3.
  */
@@ -27,6 +30,11 @@ public abstract class MyWebApplicationInitializer extends AbstractAnnotationConf
      *              <param-value>classpath:application-mvc.xml</param-value>
      *      </init-param>
      *      <load-on-startup>1</load-on-startup>
+     *      <multipart-config>
+     *              <location>F:\my\my_projects\spring_word_template_files\tmp</location>
+     *              <max-file-size>2097152</max-file-size>
+     *              <max-request-size>4194304</max-request-size>
+     *      </multipart-config>
      * </servlet>
      * <servlet-mapping>
      *      <servlet-name>applicationMvc</servlet-name>
@@ -54,5 +62,14 @@ public abstract class MyWebApplicationInitializer extends AbstractAnnotationConf
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{ApplicationContextConfig.class};
+    }
+
+    /**
+     * 配置servlet3.0的文件上传，相当于上述的<multipart-config>配置
+     * @param registration
+     */
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setMultipartConfig(new MultipartConfigElement("F:\\my\\my_projects\\spring_word_template_files\\tmp",2097152,4194304,0));
     }
 }

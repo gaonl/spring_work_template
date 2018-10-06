@@ -59,6 +59,9 @@
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
-    <!-- 设置文件上传解析器 -->
+    <!-- 设置文件上传解析器，使用apache commons file upload -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!-- 设置文件上传解析器，使用servlet3.0原生的文件上传 -->
+    <!--<bean id="multipartResolver1" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>-->
 </beans>

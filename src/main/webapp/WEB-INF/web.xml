@@ -59,6 +59,12 @@
             <param-value>classpath:application-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <!-- 设置servlet3.0的文件上传 -->
+        <!--<multipart-config>-->
+            <!--<location>F:\my\my_projects\spring_word_template_files\tmp</location>-->
+            <!--<max-file-size>2097152</max-file-size>-->
+            <!--<max-request-size>4194304</max-request-size>-->
+        <!--</multipart-config>-->
     </servlet>
     <servlet-mapping>
         <servlet-name>applicationMVC</servlet-name>
