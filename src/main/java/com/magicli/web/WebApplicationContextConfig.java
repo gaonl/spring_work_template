@@ -3,6 +3,8 @@ package com.magicli.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,9 +14,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 /**
-* Created by gaonl on 2018/10/3.
-* 功能相当于application-mvc.xml的配置
-*/
+ * Created by gaonl on 2018/10/3.
+ * 功能相当于application-mvc.xml的配置
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.magicli.web")
@@ -41,6 +43,11 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         freeMarkerConfigurer.setDefaultEncoding("UTF-8");
 
         return freeMarkerConfigurer;
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
     }
 
     @Override //相当于配置了<mvc:default-servlet-handler/>  让默认的servlet去处理静态资源

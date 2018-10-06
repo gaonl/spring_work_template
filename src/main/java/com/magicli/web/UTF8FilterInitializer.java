@@ -1,9 +1,7 @@
 package com.magicli.web;
 
-import com.magicli.ApplicationContextConfig;
-import com.magicli.web.WebApplicationContextConfig;
 import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -21,7 +19,10 @@ public abstract class UTF8FilterInitializer implements WebApplicationInitializer
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        FilterRegistration.Dynamic dynamic = servletContext.addFilter("utf8Filter", org.springframework.web.filter.CharacterEncodingFilter.class);
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+
+        FilterRegistration.Dynamic dynamic = servletContext.addFilter("SpringCharacterEncodingFilter", filter);
         dynamic.addMappingForUrlPatterns(null, false, "/*");
     }
 }
