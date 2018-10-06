@@ -2,14 +2,12 @@ package com.magicli.web.controller;
 
 import com.magicli.ioc.dao.UserDao;
 import com.magicli.ioc.domain.User;
+import com.magicli.web.controller.exceptions.DuplicateDomainException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -26,13 +24,22 @@ public class UserInfoController {
 
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public String showUserInfo(@PathVariable("userId") Integer userId, Model model) {
+
+//        if(System.currentTimeMillis() >100){
+//            throw new DuplicateDomainException();
+//        }
+
         User user = userDao.getById(userId);
         model.addAttribute("user", user);
         return "user/info";
     }
 
+    /**
+     * 也可以使用javax.servlet.http.Part
+     * 如果使用javax.servlet.http.Part，就可以不用配置MultipartResolver了，方便快捷（不过只能在servlet3.0中使用）
+     */
     @RequestMapping(path = "/profile/upload", method = RequestMethod.POST)
-    public String profileUpload(Integer userId, String title, @RequestPart MultipartFile profile) {
+    public String profileUpload(Integer userId, String title, @RequestPart MultipartFile profile, Model model) {
         File baseDir = new File("F:\\my\\my_projects\\spring_word_template_files\\upload");
 
         String originalFilename = profile.getOriginalFilename();
@@ -54,8 +61,23 @@ public class UserInfoController {
             e.printStackTrace();
         }
 
-        return "redirect:/user/" + userId;
+
+        model.addAttribute("userId",userId);
+        model.addAttribute("title",title);
+
+        //url重定向，spring会吧model里面的参数放到URL下面去（不要用字符串拼接的，用占位符）
+        //假设userId=1 title='china' 如下的URL会重定向到  /user/1?title=china
+        return "redirect:/user/{userId}";
 
     }
+
+    /**
+     * 当这个controller抛出DuplicateDomainException异常时，调用这个方法，不知道能不能带请求参数，算了，不试了
+     * @return
+     */
+//    @ExceptionHandler(DuplicateDomainException.class)
+//    public String exceptionHandler(){
+//        return "error/500";
+//    }
 
 }
