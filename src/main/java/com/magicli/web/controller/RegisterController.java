@@ -31,6 +31,7 @@ public class RegisterController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String doRegister(User user) {
+        user.setRegisterDateTime(System.currentTimeMillis());
         userDao.save(user);
         return "redirect:/register/success";
     }

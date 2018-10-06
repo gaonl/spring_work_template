@@ -2,6 +2,24 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+
+    <!-- 设置post提交数据编码为UTF-8，get方式在tomcat中的配置文件 -->
+    <!--<Connector port="8080" protocol="HTTP/1.1"-->
+               <!--connectionTimeout="20000"-->
+               <!--redirectPort="8443" URIEncoding="UTF-8"/>-->
+    <filter>
+        <filter-name>SpringCharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SpringCharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- 配置加载父容器 -->
     <!-- 指定ApplicationContext，默认貌似是 XmlWebApplicationContext -->
     <!--<context-param>-->

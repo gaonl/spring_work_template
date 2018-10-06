@@ -1,5 +1,8 @@
 package com.magicli.ioc.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by gaonl on 2018/9/28.
  */
@@ -39,6 +42,12 @@ public class User {
 
     public void setRegisterDateTime(Long registerDateTime) {
         this.registerDateTime = registerDateTime;
+    }
+
+    public String getDisplayRegisterDateTime() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return df.format(this.registerDateTime);
     }
 
     @Override
