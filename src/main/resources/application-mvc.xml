@@ -13,35 +13,34 @@
     <!--<mvc:resources location="/css/" mapping="/css/**"/>-->
     <!--<mvc:resources location="/js/" mapping="/js/**"/>-->
 
-    <!-- http请求相应转换器 -->
-    <!--<mvc:annotation-driven>-->
-        <!--<mvc:message-converters register-defaults="true">-->
-            <!--&lt;!&ndash; 将StringHttpMessageConverter的默认编码设为UTF-8 &ndash;&gt;-->
-            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
-                <!--<property name="writeAcceptCharset" value="false"/>-->
-                <!--<constructor-arg value="UTF-8"/>-->
-            <!--</bean>-->
-            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-                <!--<property name="supportedMediaTypes">-->
-                    <!--<list>-->
-                        <!--<value>application/json</value>-->
-                    <!--</list>-->
-                <!--</property>-->
-            <!--</bean>-->
-        <!--</mvc:message-converters>-->
-    <!--</mvc:annotation-driven>-->
-
+    <!-- http请求相应转换器，用于http请求体和响应体的转换（如果有相应的jar包存在，就会自己配置Converter） -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="writeAcceptCharset" value="false"/>
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 配置spring拦截器 -->
     <!--<mvc:interceptors>-->
-        <!--&lt;!&ndash; interceptor 配置顺序就是执行顺利 &ndash;&gt;-->
+        <!-- interceptor 配置顺序就是执行顺利 -->
         <!--<mvc:interceptor>-->
             <!--<mvc:mapping path="/"/>-->
             <!--<mvc:mapping path="/**/*.html"/>-->
             <!--<bean class="com.livect.vod.intercceptors.PageNameInterceptor"/>-->
         <!--</mvc:interceptor>-->
         <!--<mvc:interceptor>-->
-            <!--&lt;!&ndash;<mvc:mapping path="/"/>&ndash;&gt;-->
+            <!--<mvc:mapping path="/"/>-->
             <!--<mvc:mapping path="/**/*.html"/>-->
             <!--<bean class="com.livect.vod.intercceptors.VersionInterceptor"/>-->
         <!--</mvc:interceptor>-->
