@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="target" class="com.magicli.aop.baseinner.TargetImpl"></bean>
+    <bean id="beforeAdvice" class="com.magicli.aop.baseinner.BeforeAdvice"></bean>
+    <bean id="afterAdvice" class="com.magicli.aop.baseinner.AfterAdvice"></bean>
+    <bean id="aroundAdvice" class="com.magicli.aop.baseinner.AroundAdvice"></bean>
+    <bean id="introductionAdvice" class="com.magicli.aop.baseinner.IntroductionAdvice"></bean>
+
+    <!-- 此处是一个及其重要的点代理知识点 -->
+    <!-- 如果introductionAdvice增强通知放后面，就会报错 java.lang.IllegalArgumentException: object is not an instance of declaring class-->
+    <!-- 因为aroundAdvice的invoke方法中此时target对象不是增强后的对象，就是说，还没有close()这个增强方法-->
+    <!-- 如果introductionAdvice排在前面，调用super.invoke()的时候，如果调用的方法是增强的方法，就不会再往后传递了，即aroundAdvice不会对增强的方法进行调用-->
+    <!-- 也就不会因为反射调用没有增强方法的target对象而报错了 -->
+    <!-- 将增强的advice放前面就可以了 -->
+    <!--/**
+    * Subclasses may need to override this if they want to perform custom
+    * behaviour in around advice. However, subclasses should invoke this
+    * method, which handles introduced interfaces and forwarding to the target.
+    */-->
+    <!-- advice（MethodInterceptor实现了Advice） 或者 advisor增强-->
+    <!--<bean id="proxiedTarget" class="org.springframework.aop.framework.ProxyFactoryBean">-->
+        <!--<property name="interceptorNames" value="introductionAdvice,beforeAdvice,afterAdvice,aroundAdvice"></property>-->
+        <!--<property name="proxyInterfaces" value="com.magicli.aop.baseinner.Target,com.magicli.aop.baseinner.MyCloseable"></property>-->
+        <!--<property name="target" ref="target"></property>-->
+        <!--<property name="singleton" value="true"></property>-->
+        <!--<property name="proxyTargetClass" value="true"></property>-->
+    <!--</bean>-->
+
+    <!-- 根据bean的名称创建自动代理，此类实现了BeanPostProcessor，在创建bean的时候，为容器内符合名称的bean自动创建代理，可以使用通配符-->
+    <!--<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">-->
+        <!--<property name="beanNames" value="target,target1,target2"></property>-->
+        <!--<property name="interceptorNames" value="beforeAdvice"></property>-->
+        <!--<property name="optimize" value="true"></property>-->
+    <!--</bean>-->
+
+    <!-- 根据bean的名称创建自动代理，此类实现了BeanPostProcessor，在创建bean的时候-->
+    <!-- 判断该bean是否实现了Advisor，如果是，则根据advisor包含的切面的所有的信息了（包括PointCut, Advice），自动将次bean包装成代理后的bean-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="optimize" value="true"></property>
+        <property name="proxyTargetClass" value="true"></property>
+    </bean>
+    <bean class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="aroundAdvice"></property>
+        <property name="pattern" value=".*save.*"></property>
+    </bean>
+
+    <!-- 自动配置带@Aspect注解的切面，同<aop:aspectj-autoproxy proxy-target-class="true"/> -->
+    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator">
+        <property name="optimize" value="true"></property>
+        <property name="proxyTargetClass" value="true"></property>
+    </bean>
+</beans>

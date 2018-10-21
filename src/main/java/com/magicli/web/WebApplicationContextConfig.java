@@ -17,9 +17,9 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  * Created by gaonl on 2018/10/3.
  * 功能相当于application-mvc.xml的配置
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan("com.magicli.web")
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan("com.magicli.web")
 public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {

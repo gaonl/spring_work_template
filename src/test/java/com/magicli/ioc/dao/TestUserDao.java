@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,8 +18,8 @@ import java.util.UUID;
  * Created by gaonl on 2018/9/28.
  */
 @RunWith(SpringJUnit4ClassRunner.class) //使用junit4进行测试
-@ContextConfiguration(locations = {"classpath:application-context.xml"}) //加载配置文件
-//@ContextConfiguration(classes = ApplicationContextConfig.class) //加载配置java类
+//@ContextConfiguration(locations = {"classpath:application-context.xml"}) //加载配置文件
+@ContextConfiguration(classes = ApplicationContextConfig.class) //加载配置java类
 public class TestUserDao {
 
     @Autowired
@@ -29,6 +30,8 @@ public class TestUserDao {
     public void testSave() {
         User user = new User();
         user.setName("user_" + UUID.randomUUID().toString());
+        user.setPassword("user_password_" + UUID.randomUUID().toString());
+        user.setRegisterDateTime(new Date().getTime());
         User userSaved = userDao.save(user);
 
         User userFindById = userDao.getById(user.getId());

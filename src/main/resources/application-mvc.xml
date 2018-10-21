@@ -46,6 +46,7 @@
         <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
 
+    <bean id="liveCycleBean" class="com.magicli.beans.LiveCycleBean" init-method="myInit" destroy-method="myDestroy"/>
 
     <!-- 配置freemarker视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">

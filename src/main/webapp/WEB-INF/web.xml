@@ -39,6 +39,8 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- 配置sprigmvc子容器，也是XmlWebApplicationContext，会将上面配置的作为父容器！！ -->
+    <!-- 父子容器是独立的，只是子容器可以访问父容器的bean,父容器不能访问子容器的bean仅此而已！！ -->
     <!-- 配置DispatcherServlet(默认会根据applicationMvc这个名称去/WEB-INF/查找applicationMvc-context.xml配置文件) -->
     <servlet>
         <servlet-name>applicationMVC</servlet-name>

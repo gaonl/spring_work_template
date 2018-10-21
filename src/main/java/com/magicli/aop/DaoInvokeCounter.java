@@ -8,10 +8,14 @@ import org.aspectj.lang.ProceedingJoinPoint;
  * Created by gaonl on 2018/9/29.
  */
 public class DaoInvokeCounter {
-    public void before(JoinPoint joinPoint) {
-        Object param = joinPoint.getArgs()[0];
-        String methodName = joinPoint.getSignature().getName();
-        System.out.println("The method [" + methodName + "] before with user: " + param);
+//    public void before(JoinPoint joinPoint) {
+//        Object param = joinPoint.getArgs()[0];
+//        String methodName = joinPoint.getSignature().getName();
+//        System.out.println("The method [" + methodName + "] before with user: " + param);
+//    }
+
+    public void before(User user) {
+        System.out.println("*****>---countBeforeInvokeDaoMethod with id:" + user);
     }
 
     public void after(JoinPoint joinPoint) {

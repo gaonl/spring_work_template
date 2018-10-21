@@ -1,5 +1,6 @@
 package com.magicli.aop;
 
+import com.magicli.ioc.domain.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -18,11 +19,18 @@ public class DaoInvokeCounterAspectAnnotation {
     }
 
 
-    @Before(value = "savePointCut()")
-    public void before(JoinPoint joinPoint) {
-        Object param = joinPoint.getArgs()[0];
-        String methodName = joinPoint.getSignature().getName();
-        System.out.println("[annotation]The method [" + methodName + "] before with user: " + param);
+//    @Before(value = "savePointCut()")
+//    public void before(JoinPoint joinPoint) {
+//        Object param = joinPoint.getArgs()[0];
+//        String methodName = joinPoint.getSignature().getName();
+//        System.out.println("[annotation]The method [" + methodName + "] before with user: " + param);
+//    }
+
+    @Before(value = "savePointCut() && args(user)")
+    public void before(User user) {
+//        Object param = joinPoint.getArgs()[0];
+//        String methodName = joinPoint.getSignature().getName();
+        System.out.println("[annotation]The method [" + "**" + "] before with user: " + user);
     }
 
     @After(value = "savePointCut()")

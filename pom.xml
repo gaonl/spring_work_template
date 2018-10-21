@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.magicli</groupId>
-    <artifactId>learn-spring-boot</artifactId>
+    <artifactId>learn-spring</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
@@ -139,6 +139,13 @@
             <artifactId>spring-test</artifactId>
             <version>4.3.2.RELEASE</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/asm/asm -->
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
         </dependency>
 
     </dependencies>
