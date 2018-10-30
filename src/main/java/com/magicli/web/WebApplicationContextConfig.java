@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  * 功能相当于application-mvc.xml的配置
  */
 //@Configuration
-//@EnableWebMvc
+//@EnableWebMvc   //启用mvc配置，就是会配置默认的requestMapping 啊  handlerAdapter  默认的converters之类的mvc元素
 //@ComponentScan("com.magicli.web")
 public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     @Bean
