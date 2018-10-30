@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
 import java.net.URI;
@@ -108,7 +109,7 @@ public class UserInfoController {
      * 如果使用javax.servlet.http.Part，就可以不用配置MultipartResolver了，方便快捷（不过只能在servlet3.0中使用）
      */
     @RequestMapping(path = "/profile/upload", method = RequestMethod.POST)
-    public String profileUpload(Integer userId, String title, @RequestPart MultipartFile profile, Model model) {
+    public String profileUpload(Integer userId, String title, @RequestPart MultipartFile profile, Model model, RedirectAttributes redirectAttributes) {
         File baseDir = new File("F:\\my\\my_projects\\spring_word_template_files\\upload");
 
         String originalFilename = profile.getOriginalFilename();
@@ -131,8 +132,17 @@ public class UserInfoController {
         }
 
 
-        model.addAttribute("userId", userId);
-        model.addAttribute("title", title);
+        /**
+         * spring5.x过后好像就不能用这种方式了
+         */
+//        model.addAttribute("userId", userId);
+//        model.addAttribute("title", title);
+
+        /**
+         * 都用这种方式吧
+         */
+        redirectAttributes.addAttribute("userId", userId);
+        redirectAttributes.addAttribute("title", title);
 
         //url重定向，spring会吧model里面的参数放到URL下面去（不要用字符串拼接的，用占位符）
         //假设userId=1 title='china' 如下的URL会重定向到  /user/1?title=china
