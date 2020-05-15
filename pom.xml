@@ -287,6 +287,8 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.maglicli.Application</mainClass>
+                            <!-- 加上这个，不然如果是开发版本，打出来的jar包和manifest中的jar文件名可能不一样（会带有时间戳） -->
+                            <useUniqueVersions>false</useUniqueVersions>
                         </manifest>
                     </archive>
                 </configuration>
